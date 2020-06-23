@@ -1,0 +1,201 @@
+/*
+ *  SPACEX Big Martian Dome Clock
+ *  MADE BY THIJMEN
+ */
+
+/*  General settings first */
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: #666;
+    color: #ccc;
+}
+
+html, body {
+    margin: 0;
+}
+body {
+    background: #222;
+    color: #ccc;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+}
+
+/* Place the small clocks side by side */
+.bar {
+    display: flex;
+    height: 30vh;
+    justify-content: center;
+}
+
+/* Have a nice fade in for all clocks */
+.clock__holder * {
+    opacity: 0;
+    transition: opacity .15s;
+}
+.clock__holder .show {
+    opacity: 1;
+}
+
+/* Actually style the various clocks */
+/* Both the hands and numbers on the dial use a CSS variable to move around */
+.clock {
+    position: relative;
+}
+.clock--main {
+    height: 70vh;
+}
+.clock--main .clock__holder {
+    width: 70vw; 
+    height: 70vw;
+    max-height: 70vh;
+    max-width: 70vh;
+}
+.clock--secondary {
+    height: 25vh;
+    min-width: 25vh;
+}
+.clock--secondary .clock__holder {
+    width: 25vw; 
+    height: 25vw;
+    max-height: 25vh;
+    max-width: 25vh;
+}
+.clock__holder {
+    margin: auto;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow: hidden;
+}
+.clock__hand {
+    --rotation: 0;
+    width: 1rem;
+    border-radius: .5rem .5rem 0 0;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    top: 25%;
+    margin-left: -.5rem;
+    z-index: 4;
+    transform: rotate(var(--rotation));
+    transform-origin: bottom center;
+    transition: transform .2s ease, opacity 1s;
+} 
+.clock__hand--second {
+    z-index: 2;
+    width: .25rem !important;
+    margin-left: -.125rem !important;
+    background: #f00;
+    top: 5%;
+}
+.clock__hand--minute {
+    z-index: 3;
+    top: 10%;
+}
+.clock__center {
+    top:50%;
+    left:50%;
+    margin: -1rem 0 0 -1rem;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background: #fff;
+    z-index: 5;
+}
+.clock__number {
+    --rotation: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(var(--rotation));
+    display: flex;
+    justify-content: center;
+    padding: 5% 0;
+}
+.clock__number--01 {
+    --rotation: 30deg;
+}
+.clock__number--02 {
+    --rotation: 60deg;
+}
+.clock__number--03 {
+    --rotation: 90deg;
+}
+.clock__number--04 {
+    --rotation: -30deg;
+}
+.clock__number--05 {
+    --rotation: -60deg;
+}
+.clock__number--06 {
+    --rotation: -90deg;
+}
+.clock__number--bottom {
+    align-items: flex-end;
+}
+
+/* The timezone is a <select> element, so it needs some extra love to look okay */
+.clock__timezone {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align-last: center;
+    top: 70%;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    margin-top: -.5rem;
+    line-height: 1;
+    font: inherit;
+    border: 0;
+    -webkit-appearance: none;
+    background: transparent;
+    transition: opacity .25s, color .15s;
+    z-index: 6;
+    text-shadow: 0 2px 4px rgba(34, 34, 34, .5), 0 3px 32px rgba(34, 34, 34, .5);
+}
+.clock__timezone:hover, .clock__timezone:focus, .clock__timezone:active {
+    color: #fff;
+    outline: 0;
+}
+
+.clock__timeOfDay {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    height: 10%;
+    background: url('../img/day.svg') no-repeat center center;
+    background-size: contain;
+}
+.clock__timeOfDay.night {
+    background-image: url('../img/night.svg');
+}
+.clock--main .clock__timezone {
+    font-size: 1.25rem;
+}
+
+/* Small tweaks to the small clocks */
+.clock--secondary .clock__hand {
+    width: .5rem;
+    margin-left: -.25rem;
+}
+.clock--secondary .clock__center {
+    margin: -.5rem 0 0 -.5rem;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Used by JS to prevent ugly jumps in transitions when going from 360deg to 0deg */
+.animation-disabled {
+    transition: none !important;
+}
