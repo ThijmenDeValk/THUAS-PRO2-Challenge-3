@@ -14,6 +14,7 @@ const mapsboxApiKey = 'pk.eyJ1IjoidGhpam1lbi10aHVhcyIsImEiOiJja2JydzFqenEyNzk4Mn
 const startingPosition = [-80.5648, 28.4734]; // Cape Canaveral
 
 const locationElement = document.querySelector('.location');
+const weatherElement = document.querySelector('.weather');
 const marker = new mapboxgl.Marker();
 
 function getLocationInfo(coordinates) {
@@ -34,7 +35,22 @@ function getWeatherData(coordinates) {
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
-      locationElement.querySelector('img').src = `http://openweathermap.org/img/wn/${json.current.weather[0].icon}@2x.png`;
+
+      // We need the time in UTC, in seconds sinds epoch, so we can calculate timezone offset
+      const now = new Date();
+
+      const localTimeSinceEpoch = now.getTime() + json.timezone_offset * 1000;
+      console.log(now.getTime());
+      console.log(localTimeSinceEpoch);
+      const localTime = new Date(localTimeSinceEpoch);
+
+      locationElement.querySelector('time').innerHTML = `${localTime.getUTCHours().toString().padStart(2, '0')}:${localTime.getUTCMinutes().toString().padStart(2, '0')}`;
+
+      const imageTarget = weatherElement.querySelector('img');
+      imageTarget.src = `http://openweathermap.org/img/wn/${json.current.weather[0].icon}@2x.png`;
+      imageTarget.title = json.current.weather[0].description;
+
+      weatherElement.querySelector('.weather__temperature b').innerHTML = json.current.temp.toFixed(1);
     });
 }
 
