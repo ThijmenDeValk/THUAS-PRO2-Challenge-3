@@ -42,19 +42,25 @@ body {
     width: 100%;
     height: 100%;
 }
+.canvas {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+}
 .canvas__overlay {
     width: 50%;
     max-width: 600px;
     margin: 0 auto;
     background: #fff;
     border-radius: .25rem;
-    min-height: 2rem;
     position: relative;
     z-index: 2;
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5), 0 .25rem .5rem rgba(0, 0, 0, .3);
     padding: 1rem;
-    margin-top: 1rem;
     display: flex;
+    justify-content: space-evenly;
 }
 
 .location {
@@ -74,11 +80,12 @@ body {
     overflow: hidden;
 }
 
-.weather__icon {
+.icon {
     width: 50px;
     display: block;
+    transition: transform ease-in-out .25s;
 }
-.weather__temperature {
+p {
     font-size: .8rem;
     font-weight: normal;
     text-align: center;
