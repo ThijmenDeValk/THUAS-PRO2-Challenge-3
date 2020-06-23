@@ -1,13 +1,16 @@
 /*
- *  SPACEX Big Martian Dome Clock
+ *  SPACEX Landing Zone Decision System (LaZoDeS)
  *  MADE BY THIJMEN
  *
  *  TABLE OF CONTENTS:
- *  1. HELPER THINGS
- *  2. CLOCK CLASS
+ *  1. VARIABLES
+ *  2. FETCH FUNCTIONS
  *  3. INITIALIZE
  */
 
+/*
+ * VARIABLES
+ */
 const weatherApiKey = 'f4d70530ba2bd5a0a070506901e28268';
 const mapsboxApiKey = 'pk.eyJ1IjoidGhpam1lbi10aHVhcyIsImEiOiJja2JydzFqenEyNzk4MnRyNXlhcmV3YjdyIn0.afMokbRcTFYI_Ef4r4UkaQ';
 
@@ -18,6 +21,9 @@ const weatherElement = document.querySelector('.weather');
 const windElement = document.querySelector('.wind');
 const marker = new mapboxgl.Marker();
 
+/*
+ * FETCH FUNCTIONS
+ */
 function getLocationData(coordinates) {
   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?types=place,locality,region,country&access_token=${mapsboxApiKey}`)
     .then((response) => response.json())
@@ -71,7 +77,7 @@ function handleLocationChange(coordinates) {
 }
 
 /*
- * MAPBOX SETUP & INIT
+ * INITIALIZE
  */
 mapboxgl.accessToken = mapsboxApiKey;
 
