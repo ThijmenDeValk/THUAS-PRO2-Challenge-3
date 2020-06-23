@@ -7,10 +7,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet"> 
-		<script src="assets/js/main.js" defer></script>
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js" defer></script>
+        <script src="assets/js/main.js" defer></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel='stylesheet'>
 	</head>
 	<body>
-        <main class="container">
+        <main class="canvas">
+            <div class="canvas__map">
+                <div id="map" class="map"></div>
+            </div>
+            <div class="canvas__overlay">
+                <div class="location hide-on-load">
+                    <h1 class="location__coordinates"></h1>
+                    <h2 class="location__friendly-name"></h2>
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" class="location__weather">
+                </div>
+            </div>
         </main>
 	</body>
 </html>
